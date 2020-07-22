@@ -1,0 +1,68 @@
+#![enable(implicit_some)]
+/*!
+    @import /amethyst_assets/src/prefab/mod.rs#Prefab
+    @import ../../gltf/main.rs#ScenePrefabData
+    Prefab<ScenePrefabData>
+*/
+
+Prefab (
+    entities: [
+        (
+            data: (
+                light: (ambient_color: ((0.0, 0.0, 0.0, 0.0))),
+            ),
+        ),
+        (
+            data: (
+                transform: (
+                    translation: (0.0, 20.0, 20.0),
+                    //rotation: (0.0, 1.0, 1.0, 0.0),
+                ),
+            ),
+        ),
+        (
+            parent: 1,
+            data: (
+                transform: (
+                    translation: (0.0, 0.0, 0.0),
+                    //rotation: (0.0, 1.0, 1.0, 0.0),
+                ),
+                fly_tag: (),
+            ),
+        ),
+        (
+            parent: 2,
+            data: (
+                transform: (
+                    translation: (0.0, 0.0, 0.0),
+                    //rotation: (0.0, 1.0, 1.0, 0.0),
+                ),
+                camera: Perspective(
+                    aspect: 1.3,
+                    fovy: 1.0,
+                    znear: 0.001,
+                    zfar: 2000.0,
+                ),
+                auto_fov: (
+                    base_fovx: 1.3,
+                    base_aspect_ratio: (13, 10),
+                ),
+
+            ),
+        ),
+        (
+            data: (
+                transform: (
+                    translation: (0.0, -20.0, 0.0),
+                    rotation: (0.0, 1.0, 0.0, 0.0),
+                ),
+                light: (
+                    light: Point((
+                        intensity: 5.0,
+                        color: (1.0, 1.0, 1.0),
+                    )),
+                ),
+            ),
+        ),
+    ],
+)
