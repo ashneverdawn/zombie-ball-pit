@@ -39,9 +39,9 @@ fn main() -> amethyst::Result<()> {
         .with_system_desc(PrefabLoaderSystemDesc::<entities::scene::ScenePrefabData>::default(), "scene_loader", &[])
         .with_bundle(
             FlyControlBundle::<StringBindings>::new(
-                Some(String::from("move_x")),
-                Some(String::from("move_y")),
-                Some(String::from("move_z")),
+disabled                Some(String::from("")),
+                Some(String::from("")),
+                Some(String::from("")),
             )
             .with_sensitivity(0.1, 0.1)
             .with_speed(5.),
