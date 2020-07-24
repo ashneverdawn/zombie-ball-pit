@@ -1,0 +1,27 @@
+#![enable(implicit_some)]
+
+Prefab (
+    entities: [
+        data: (
+            texture: File("textures/StoneWall.jpg", (
+                "IMAGE", (
+                    sampler_info: (
+                        min_filter: Nearest,
+                        mag_filter: Nearest,
+                        mip_filter: Nearest,
+                        wrap_mode: (Tile, Tile, Tile),
+                        lod_bias: (0),
+                        lod_range: (
+                            start: ( 0 ),
+                            end: ( 8000 ),
+                        ),
+                        comparison: None,
+                        border: (0),
+                        normalized: true,
+                        anisotropic: Off,
+                    ),
+                ),
+            )),
+        )
+    ]
+)

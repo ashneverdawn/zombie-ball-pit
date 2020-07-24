@@ -4,6 +4,7 @@ use amethyst_imgui::imgui;
 use amethyst::input;
 use std::time::Instant;
 use crate::entities::ball;
+use crate::entities::player;
 
 pub struct GameState{
     last_spawn_time : Instant,
@@ -19,8 +20,9 @@ impl Default for GameState {
 }
 
 impl SimpleState for GameState {
-    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
+    fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         self.last_spawn_time = Instant::now();
+        player::create(data.world);
     }
     fn handle_event(&mut self, _data: StateData<'_, GameData<'_, '_>>, event: StateEvent) -> SimpleTrans {
         if let StateEvent::Window(event) = &event {
@@ -34,7 +36,7 @@ impl SimpleState for GameState {
         self.render_ui();
 
         if self.last_spawn_time.elapsed().as_millis() > 500 && self.ball_count < 15 {
-            ball::create(data.world, 0.0, false);
+            ball::create(data.world);
             self.last_spawn_time = Instant::now();
             self.ball_count += 1;
         }

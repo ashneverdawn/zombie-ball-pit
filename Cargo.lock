@@ -4237,6 +4237,7 @@ dependencies = [
  "amethyst-imgui",
  "amethyst_nphysics",
  "amethyst_physics",
+ "derive-new",
  "genmesh",
  "log",
  "rand 0.7.3",

@@ -1,13 +1,23 @@
 use amethyst::{
     assets::{AssetStorage, Handle, Loader},
-    core::{Named, Parent, Transform, TransformBundle},
+    core::{
+        Named, Parent, Transform, TransformBundle,
+        math::{
+            Vector3,
+        },
+    },
     derive::SystemDesc,
     ecs::{
-        Component, Entity, Join, NullStorage, Read, ReadStorage, System, SystemData, WorldExt,
+        Component, Entity, Join, NullStorage, Read, ReadStorage, WriteExpect, System, SystemData, WorldExt,
         WriteStorage,
     },
     input::{InputHandler, StringBindings},
+    core::timing::Time,
 };
+use amethyst_physics::{
+    prelude::*,
+};
+use std::ops::Deref;
 
 
 #[derive(Default)]
@@ -21,20 +31,27 @@ pub struct PlayerSystem;
 
 impl<'s> System<'s> for PlayerSystem {
     type SystemData = (
-        WriteStorage<'s, Transform>,
+        Read<'s, Time>,
         Read<'s, InputHandler<StringBindings>>,
+        WriteExpect<'s, PhysicsWorld<f32>>,
+        ReadStorage<'s, PhysicsHandle<PhysicsRigidBodyTag>>,
+        ReadStorage<'s, Player>,
     );
 
-    fn run(&mut self, (mut transforms, input): Self::SystemData) {
-        /*
-        let x_move = input.axis_value("entity_x").unwrap();
-        let y_move = input.axis_value("entity_y").unwrap();
+    fn run(&mut self, (time, input, mut physics, rigidbodies, players): Self::SystemData) {
+        
+        let x_move = input.axis_value("move_x").unwrap();
+        let z_move = input.axis_value("move_z").unwrap();
 
-        for (_, transform) in (&players, &mut transforms).join() {
-            transform.prepend_translation_x(x_move as f32 * 5.0);
-            transform.prepend_translation_y(y_move as f32 * 5.0);
-            // println!("Player = {:?}", transform);
+        for (_, rigidbody) in (&players, &rigidbodies).join() {
+
+            let mut dir = Vector3::<f32>::new(x_move, 0.0, z_move);
+            if dir != Vector3::<f32>::new(0.0, 0.0, 0.0) {
+                dir = dir.normalize() * -3000.0 * time.delta_seconds();
+                physics.rigid_body_server().apply_force(rigidbody.get(), &dir);
+            }
+            
         }
-        */
+        
     }
 }

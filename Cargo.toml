@@ -15,3 +15,4 @@ serde = { version = "1.0.114", features = ["derive"] }
 log = "0.4"
 rand = "0.7.3"
 genmesh = "0.6.2"
+derive-new = "0.5"

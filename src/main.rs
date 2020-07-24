@@ -17,7 +17,6 @@ use amethyst_imgui::RenderImgui;
 
 mod states;
 mod entities;
-mod meshes;
 mod systems;
 
 fn main() -> amethyst::Result<()> {
@@ -48,7 +47,7 @@ fn main() -> amethyst::Result<()> {
             .with_speed(5.),
         )?
         .with_bundle(TransformBundle::new().with_dep(&[
-            "fly_movement",
+            "fly_movement", "free_rotation",
         ]))?
         .with_bundle(
             InputBundle::<StringBindings>::new().with_bindings_from_file(&key_bindings_path)?,
@@ -56,6 +55,7 @@ fn main() -> amethyst::Result<()> {
         .with(systems::ball_ai::BallAiSystem, "ball_ai", &[])
         .with(systems::zombie_ai::ZombieAiSystem, "zombie_ai", &[])
         .with(systems::player::PlayerSystem, "player", &[])
+        .with(systems::game::GameSystem, "game", &[])
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 .with_plugin(RenderToWindow::from_config_path(display_config_path)?
